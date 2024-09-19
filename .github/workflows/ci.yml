@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+  schedule:
+  - cron: '0 0 * * *'  # daily at 00:00
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+      - name: Install deps
+        run: make install-deps
+      - name: Run CI
+        run: make ci

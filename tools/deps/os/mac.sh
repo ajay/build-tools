@@ -1,0 +1,1 @@
+brew install bats-core
