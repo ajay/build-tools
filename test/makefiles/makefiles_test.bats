@@ -1,27 +1,35 @@
 #!/usr/bin/env bats
 
-# @test "addition using bc" {
-#   result="$(echo 2+2 | bc)"
-#   [ "$result" -eq 4 ]
-# }
+################################################################################
 
-# @test "addition using dc" {
-#   result="$(echo 2 2+p | dc)"
-#   [ "$result" -eq 4 ]
-# }
+load '../helpers/bats-assert/load'
+load '../helpers/bats-support/load'
+
+################################################################################
+# functions.mk
+
+@test "`make print_tool_version_bash` produces a valid version" {
+  run make print_tool_version_bash
+  assert_success
+  assert_output --partial "bash=bash"
+  assert_output --partial "GNU bash, version"
+}
+
+@test "`make print_tool_version_make` produces a valid version" {
+  run make print_tool_version_make
+  assert_success
+  assert_output --partial "make=make"
+  assert_output --partial "GNU Make"
+}
+
+################################################################################
+# help.mk
 
 @test "`make help` produces a help menu" {
   run make help
-  assert_output --partial "  help                           this menu"
-  [ "$status" -eq 0 ]
-#   [ "$output" = "  help                           this menu
-#   print_tool_version_bash
-#   print_tool_version_make
-# " ]
+  assert_success
+  assert_output --partial "help"
+  assert_output --partial "this menu"
 }
 
-# @test "invoking foo without arguments prints usage" {
-#   run foo
-#   [ "$status" -eq 1 ]
-#   [ "${lines[0]}" = "usage: foo <filename>" ]
-# }
+################################################################################
