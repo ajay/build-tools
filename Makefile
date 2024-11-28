@@ -4,7 +4,7 @@ include makefiles/help.mk
 
 ################################################################################
 
-SHELL = bash
+SHELL := bash
 
 MAKEFLAGS += -rR                        # do not use make's built-in rules and variables
 MAKEFLAGS += -k                         # keep going on errors
@@ -14,9 +14,9 @@ MAKEFLAGS += --no-print-directory
 ################################################################################
 
 ifeq ($(shell uname -s),Darwin)
-OS := mac
+	OS := mac
 else
-OS := $(shell lsb_release --id | awk '{print $$3}' | tr A-Z a-z)
+	OS := $(shell lsb_release -is | tr A-Z a-z)
 endif
 
 ################################################################################
