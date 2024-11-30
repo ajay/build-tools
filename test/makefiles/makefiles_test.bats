@@ -30,6 +30,8 @@ load '../helpers/bats-support/load'
   assert_success
   assert_output --partial "help"
   assert_output --partial "this menu"
+  assert_output --partial "print_tool_version_bash"
+  assert_output --partial "print_tool_version_make"
 }
 
 ################################################################################

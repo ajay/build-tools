@@ -31,7 +31,7 @@ help::
 	HELP_TARGETS=$$(echo "$${MAKE_QPR}" |                         \
 		perl -0nle 'print for /(?<!Not a target:)\n[\.\w-]+:/g' | \
 		tr -d '\0:' |                                             \
-		sort |                                                    \
+		sort -V |                                                 \
 		grep -Ev $(HELP_TARGETS_TO_IGNORE)) &&                    \
                                                                   \
 	for target in $${HELP_TARGETS};                               \
