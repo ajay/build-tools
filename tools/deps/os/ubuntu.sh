@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 set -x -e
-sudo apt install bats
+sudo apt -y install \
+	bats
