@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  workflow_call:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          token: ${{ secrets.READ_ONLY_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deps (if `make install-deps` target exists)
+        run: |
+          if make -n install-deps 2>/dev/null; then
+            make install-deps
+          fi
+      - name: CI
+        run: make ci
