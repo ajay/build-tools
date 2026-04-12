@@ -32,7 +32,7 @@
 
 # ifneq ($(MAKECMDGOALS),repo-init)
 # ifeq (,$(wildcard $(REPO_INIT_CHECK)))
-# $(error git submodules not initialized; run `make repo-init`)
+# $(error ERROR: git submodules not initialized; run `make repo-init`)
 # endif
 
 ################################################################################
