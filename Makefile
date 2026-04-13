@@ -19,18 +19,7 @@ endif
 
 ################################################################################
 
-include makefiles/help.mk
-include makefiles/os.mk
-include makefiles/repo.mk
-
-################################################################################
-
-SHELL := bash
-
-MAKEFLAGS += -rR                        # do not use make's built-in rules and variables
-MAKEFLAGS += -k                         # keep going on errors
-MAKEFLAGS += --warn-undefined-variables
-MAKEFLAGS += --no-print-directory
+include makefiles.mk
 
 ################################################################################
 

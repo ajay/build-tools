@@ -2,12 +2,11 @@
 
 # Lint targets for various file types.
 #
-# Optional overrides: LINT_HTML_EXCLUDE, LINT_JSON_EXCLUDE, PYTHON, REPO_ROOT
+# Optional overrides: LINT_HTML_EXCLUDE, LINT_JSON_EXCLUDE
 
 ################################################################################
 
-PYTHON ?= python3
-REPO_ROOT ?= $(shell git rev-parse --show-toplevel)
+-include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
 
 LINT_HTML_EXCLUDE ?= .git build node_modules
 LINT_JSON_EXCLUDE ?= .git build .claude node_modules
