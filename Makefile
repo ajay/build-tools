@@ -20,6 +20,7 @@ endif
 ################################################################################
 
 include makefiles/help.mk
+include makefiles/os.mk
 include makefiles/repo.mk
 
 ################################################################################
@@ -30,14 +31,6 @@ MAKEFLAGS += -rR                        # do not use make's built-in rules and v
 MAKEFLAGS += -k                         # keep going on errors
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-print-directory
-
-################################################################################
-
-ifeq ($(shell uname -s),Darwin)
-	OS := mac
-else
-	OS := $(shell lsb_release -is | tr A-Z a-z)
-endif
 
 ################################################################################
 
