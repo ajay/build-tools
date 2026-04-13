@@ -26,7 +26,8 @@ repo-check: repo-check-for-stale-submodules
 
 repo-check-for-stale-submodules:
 	@## check all submodules are up to date with their remotes
-	@ FAIL=0; \
+	@ echo "$@:"; \
+	FAIL=0; \
 	EXCLUDES=" $(REPO_CHECK_FOR_STALE_SUBMODULES_EXCLUDE) "; \
 	check_submodules() { \
 		local root="$$1"; \
@@ -65,7 +66,7 @@ repo-check-for-stale-submodules:
 	check_submodules "$(REPO_ROOT)" ""; \
 	if [ "$$FAIL" -ne 0 ]; then \
 		echo ""; \
-		echo "Update with: git submodule update --remote --recursive && git add -u && git commit && git push"; \
+		echo "ERROR: one or more submodules are out of date; please update"; \
 		exit 1; \
 	fi
 

@@ -1,6 +1,7 @@
 ################################################################################
 
 include makefiles/help.mk
+include makefiles/repo.mk
 
 ################################################################################
 
@@ -13,6 +14,8 @@ MAKEFLAGS += --no-print-directory
 
 ################################################################################
 
+REPO_ROOT := $(shell git rev-parse --show-toplevel)
+
 ifeq ($(shell uname -s),Darwin)
 	OS := mac
 else
@@ -24,9 +27,11 @@ endif
 .DEFAULT_GOAL := help
 
 install-deps:
-	@## install-deps
-	@tools/deps/os/$(OS).sh
+	@## install dependencies
+	tools/deps/os/$(OS).sh
 
-ci:
-	@## ci
-	@(cd test/makefiles/ && ./makefiles_test.bats)
+ci: repo-check
+	@## run CI checks
+	(cd test/makefiles/ && ./makefiles_test.bats)
+
+################################################################################
