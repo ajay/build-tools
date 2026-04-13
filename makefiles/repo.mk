@@ -42,6 +42,7 @@ repo-check-for-stale-submodules:
 				continue; \
 			fi; \
 			local url=$$(git -C "$$root" config --file .gitmodules "submodule.$$path.url"); \
+			url=$$(echo "$$url" | sed 's|git@github.com:|https://github.com/|'); \
 			local pinned=$$(git -C "$$full" rev-parse HEAD 2>/dev/null); \
 			local latest=$$(git ls-remote "$$url" refs/heads/main 2>/dev/null | cut -f1); \
 			if [ -z "$$latest" ]; then \
