@@ -81,17 +81,13 @@ repo-check-for-stale-submodules:
 
 # REPO_ROOT := $(shell git rev-parse --show-toplevel)
 
-# # Path to repo.mk — used as existence check for whether submodules
-# # are initialized. Update this path to match your submodule layout.
-# REPO_INIT_CHECK := $(REPO_ROOT)/path/to/repo.mk
-
 # repo-init:
 # 	@## initialize git submodules
 # 	git submodule sync --recursive
 # 	git submodule update --init --recursive
 
 # ifneq ($(MAKECMDGOALS),repo-init)
-# ifeq (,$(wildcard $(REPO_INIT_CHECK)))
+# ifneq (,$(shell git submodule status --recursive 2>/dev/null | grep '^-'))
 # $(error ERROR: git submodules not initialized; run `make repo-init`)
 # endif
 # endif
