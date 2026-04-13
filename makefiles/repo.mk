@@ -26,7 +26,7 @@ repo-check: repo-check-for-stale-submodules
 
 repo-check-for-stale-submodules:
 	@## check all submodules are up to date with their remotes
-	$(Q) FAIL=0; \
+	@ FAIL=0; \
 	EXCLUDES=" $(REPO_CHECK_FOR_STALE_SUBMODULES_EXCLUDE) "; \
 	check_submodules() { \
 		local root="$$1"; \
