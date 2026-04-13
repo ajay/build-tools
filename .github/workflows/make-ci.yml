@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
-          token: ${{ secrets.READ_ONLY_PAT }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
