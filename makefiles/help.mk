@@ -26,6 +26,8 @@ HELP_PRINT_RESET := "\033[00m"
 
 HELP_TARGETS_TO_IGNORE := "^\.PHONY$$"
 
+.PHONY: help
+
 help::
 	@## this menu
 	@$(MAKE) -qpr 2>/dev/null |                                                                                  \
