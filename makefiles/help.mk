@@ -27,24 +27,25 @@ HELP_TARGETS_TO_IGNORE := ".PHONY"  # Extended grep syntax (NOT PCRE due to mac 
 
 help::
 	@## this menu
-	@MAKE_QPR=$$($(MAKE) -qpr);                                   \
-	HELP_TARGETS=$$(echo "$${MAKE_QPR}" |                         \
-		perl -0nle 'print for /(?<!Not a target:)\n[\.\w-]+:/g' | \
-		tr -d '\0:' |                                             \
-		sort -V |                                                 \
-		grep -Ev $(HELP_TARGETS_TO_IGNORE)) &&                    \
-                                                                  \
-	for target in $${HELP_TARGETS};                               \
-	do                                                            \
-		TARGET_DOCSTRING=$$(echo "$${MAKE_QPR}" |                 \
-			perl -0777nle 'print for /'$${target}'\:.*?\n\n/gs' | \
-			perl -0nle 'print for /(?<=@##).*\n/g' |              \
-			tr -d '\0' |                                          \
-			head -1) &&		                                      \
-		printf $(HELP_PRINT_GREEN) &&                             \
-		printf "  %-30s" $${target} &&                            \
-		printf $(HELP_PRINT_RESET) &&                             \
-		printf "%s\n" "$${TARGET_DOCSTRING}";                     \
+	@MAKE_QPR=$$($(MAKE) -qpr);                                                                               \
+	HELP_TARGETS=$$(echo "$${MAKE_QPR}" |                                                                     \
+		perl -0nle 'print for /(?<!Not a target:)\n[\.\w-]+:/g' |                                             \
+		tr -d '\0:' |                                                                                         \
+		sort -V |                                                                                             \
+		awk '/^_/{a[++i]=$$0;next}{b[++j]=$$0}END{for(k=1;k<=i;k++)print a[k];for(k=1;k<=j;k++)print b[k]}' | \
+		grep -Ev $(HELP_TARGETS_TO_IGNORE)) &&                                                                \
+                                                                                                              \
+	for target in $${HELP_TARGETS};                                                                           \
+	do                                                                                                        \
+		TARGET_DOCSTRING=$$(echo "$${MAKE_QPR}" |                                                             \
+			perl -0777nle 'print for /'$${target}'\:.*?\n\n/gs' |                                             \
+			perl -0nle 'print for /(?<=@##).*\n/g' |                                                          \
+			tr -d '\0' |                                                                                      \
+			head -1) &&		                                                                                  \
+		printf $(HELP_PRINT_GREEN) &&                                                                         \
+		printf "  %-30s" $${target} &&                                                                        \
+		printf $(HELP_PRINT_RESET) &&                                                                         \
+		printf "%s\n" "$${TARGET_DOCSTRING}";                                                                 \
 	done
 
 ################################################################################
