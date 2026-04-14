@@ -26,49 +26,50 @@ repo-check: repo-check-for-stale-submodules
 
 repo-check-for-stale-submodules:
 	@## check all submodules are up to date with their remotes
-	@ echo "$@:"; \
-	FAIL=0; \
-	EXCLUDES=" $(REPO_CHECK_FOR_STALE_SUBMODULES_EXCLUDE) "; \
-	check_submodules() { \
-		local root="$$1"; \
-		local prefix="$$2"; \
-		local paths=$$(git -C "$$root" config --file .gitmodules --get-regexp 'submodule\..*\.path' 2>/dev/null | awk '{print $$2}'); \
-		for path in $$paths; do \
-			local full="$$root/$$path"; \
-			local display="$${prefix}$${path}"; \
-			local name=$$(basename "$$path"); \
-			if echo "$$EXCLUDES" | grep -q " $${name} "; then \
-				echo "SKIP: $$display (excluded)"; \
-				continue; \
-			fi; \
-			local url=$$(git -C "$$root" config --file .gitmodules "submodule.$$path.url"); \
-			url=$$(echo "$$url" | sed 's|git@github.com:|https://github.com/|'); \
-			local pinned=$$(git -C "$$full" rev-parse HEAD 2>/dev/null); \
-			local latest=$$(git ls-remote "$$url" refs/heads/main 2>/dev/null | cut -f1); \
-			if [ -z "$$latest" ]; then \
-				latest=$$(git ls-remote "$$url" refs/heads/master 2>/dev/null | cut -f1); \
-			fi; \
-			if [ -z "$$pinned" ]; then \
-				echo "ERROR: $$display — submodule not initialized"; \
-				FAIL=1; \
-			elif [ -z "$$latest" ]; then \
-				echo "WARNING: $$display — could not query remote"; \
-			elif [ "$$pinned" != "$$latest" ]; then \
-				echo "ERROR: $$display is stale (pinned: $${pinned:0:7}, latest: $${latest:0:7})"; \
-				FAIL=1; \
-			else \
-				echo "OK: $$display ($${pinned:0:7})"; \
-			fi; \
-			if [ -f "$$full/.gitmodules" ]; then \
-				check_submodules "$$full" "$${display}/"; \
-			fi; \
-		done; \
-	}; \
-	check_submodules "$(REPO_ROOT)" ""; \
-	if [ "$$FAIL" -ne 0 ]; then \
-		echo ""; \
-		echo "ERROR: one or more submodules are out of date; please update"; \
-		exit 1; \
+	@ echo "$@:";                                                                                               \
+	FAIL=0;                                                                                                     \
+	EXCLUDES=" $(REPO_CHECK_FOR_STALE_SUBMODULES_EXCLUDE) ";                                                    \
+	check_submodules() {                                                                                        \
+		local root="$$1";                                                                                       \
+		local prefix="$$2";                                                                                     \
+		local paths=$$(git -C "$$root" config --file .gitmodules --get-regexp 'submodule\..*\.path' 2>/dev/null \
+			| awk '{print $$2}');                                                                               \
+		for path in $$paths; do                                                                                 \
+			local full="$$root/$$path";                                                                         \
+			local display="$${prefix}$${path}";                                                                 \
+			local name=$$(basename "$$path");                                                                   \
+			if echo "$$EXCLUDES" | grep -q " $${name} "; then                                                   \
+				echo "SKIP: $$display (excluded)";                                                              \
+				continue;                                                                                       \
+			fi;                                                                                                 \
+			local url=$$(git -C "$$root" config --file .gitmodules "submodule.$$path.url");                     \
+			url=$$(echo "$$url" | sed 's|git@github.com:|https://github.com/|');                                \
+			local pinned=$$(git -C "$$full" rev-parse HEAD 2>/dev/null);                                        \
+			local latest=$$(git ls-remote "$$url" refs/heads/main 2>/dev/null | cut -f1);                       \
+			if [ -z "$$latest" ]; then                                                                          \
+				latest=$$(git ls-remote "$$url" refs/heads/master 2>/dev/null | cut -f1);                       \
+			fi;                                                                                                 \
+			if [ -z "$$pinned" ]; then                                                                          \
+				echo "ERROR: $$display — submodule not initialized";                                            \
+				FAIL=1;                                                                                         \
+			elif [ -z "$$latest" ]; then                                                                        \
+				echo "WARNING: $$display — could not query remote";                                             \
+			elif [ "$$pinned" != "$$latest" ]; then                                                             \
+				echo "ERROR: $$display is stale (pinned: $${pinned:0:7}, latest: $${latest:0:7})";              \
+				FAIL=1;                                                                                         \
+			else                                                                                                \
+				echo "OK: $$display ($${pinned:0:7})";                                                          \
+			fi;                                                                                                 \
+			if [ -f "$$full/.gitmodules" ]; then                                                                \
+				check_submodules "$$full" "$${display}/";                                                       \
+			fi;                                                                                                 \
+		done;                                                                                                   \
+	};                                                                                                          \
+	check_submodules "$(REPO_ROOT)" "";                                                                         \
+	if [ "$$FAIL" -ne 0 ]; then                                                                                 \
+		echo "";                                                                                                \
+		echo "ERROR: one or more submodules are out of date; please update";                                    \
+		exit 1;                                                                                                 \
 	fi
 
 ################################################################################
