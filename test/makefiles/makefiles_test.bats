@@ -70,3 +70,18 @@ load '../helpers/bats-support/load'
 }
 
 ################################################################################
+# git.mk
+
+@test "`make help` shows git-check target" {
+  run make help
+  assert_success
+  assert_output --regexp "git-check.*run all git health checks"
+}
+
+@test "`make help` shows git-submodule-stale-check target" {
+  run make help
+  assert_success
+  assert_output --regexp "git-submodule-stale-check.*check all submodules"
+}
+
+################################################################################

@@ -17,7 +17,6 @@ BUILDTOOLS_ROOT := $(dir $(lastword $(MAKEFILE_LIST)))makefiles
 -include $(BUILDTOOLS_ROOT)/lint.mk
 -include $(BUILDTOOLS_ROOT)/os.mk
 -include $(BUILDTOOLS_ROOT)/project.mk
--include $(BUILDTOOLS_ROOT)/repo.mk
 -include $(BUILDTOOLS_ROOT)/verbose.mk
 
 ################################################################################
