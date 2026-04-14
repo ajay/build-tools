@@ -12,6 +12,8 @@
 ################################################################################
 
 -include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
+-include $(dir $(lastword $(MAKEFILE_LIST)))functions.mk
+-include $(dir $(lastword $(MAKEFILE_LIST)))verbose.mk
 
 LINT_EXCLUDE ?= .git build .claude node_modules
 
@@ -35,16 +37,16 @@ lint: _lint_html _lint_prettier
 
 _lint_html:
 	@## lint HTML (htmlhint)
-	@ $(LINT_FIND) -name '*.html' | xargs htmlhint
+	$(Q) $(LINT_FIND) -name '*.html' | xargs htmlhint
 
 # prettier: HTML, CSS, JS, JSON (excludes symlinks)
 _lint_prettier _format_prettier:
 	@## check/format with prettier
-	@ $(LINT_FIND) -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) | xargs prettier $(PRETTIER_FLAGS)
+	$(Q) $(LINT_FIND) -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) | xargs prettier $(PRETTIER_FLAGS)
 
 versions::
 	@## print lint tool versions
-	@ echo "htmlhint:" && htmlhint --version
-	@ echo "prettier:" && prettier --version
+	$(call print_tool_version,htmlhint,htmlhint)
+	$(call print_tool_version,prettier,prettier)
 
 ################################################################################
