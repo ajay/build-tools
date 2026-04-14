@@ -27,7 +27,7 @@ help::
 	awk '/^[a-zA-Z0-9_.-]+::?/ { target = $$1; gsub(/:+$$/, "", target); next }                                  \
 		/\t@##/ && target != "" { desc = $$0; sub(/.*@## */, "", desc); print target "\t" desc; target = "" }' | \
 	grep -Ev $(HELP_TARGETS_TO_IGNORE) |                                                                         \
-	sort -t$$'\t' -k1,1V |                                                                                       \
+	sort -V |                                                                                                    \
 	uniq |                                                                                                       \
 	awk -F'\t' '/^_/{a[++i]=$$0;next}{b[++j]=$$0}END{for(k=1;k<=i;k++)print a[k];for(k=1;k<=j;k++)print b[k]}' | \
 	while IFS=$$'\t' read -r target desc; do                                                                     \
