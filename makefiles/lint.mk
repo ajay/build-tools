@@ -49,4 +49,8 @@ versions::
 	$(call print_tool_version,htmlhint,htmlhint)
 	$(call print_tool_version,prettier,prettier)
 
+deps-check::
+	$(call check_dep,htmlhint)
+	$(call check_dep,prettier)
+
 ################################################################################

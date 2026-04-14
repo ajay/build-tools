@@ -25,11 +25,7 @@ include makefiles.mk
 
 .DEFAULT_GOAL := help
 
-install-deps:
-	@## install dependencies
-	tools/deps/os/$(OS).sh
-
-ci: repo-check
+ci: repo-check deps-check
 	@## run CI checks
 	(cd test/makefiles/ && ./makefiles_test.bats)
 
