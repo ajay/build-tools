@@ -35,9 +35,7 @@ deps-install::
 
 deps-versions::
 	@## print dependency versions
-	$(Q) for tool in $(DEPS_SORTED); do \
-		echo "$$tool:" && command -v $$tool && $$tool --version && echo; \
-	done
+	$(foreach d,$(DEPS_SORTED),$(call print_tool_version,$d,$d))
 
 ################################################################################
 
