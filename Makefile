@@ -24,9 +24,13 @@ include makefiles.mk
 ################################################################################
 
 .DEFAULT_GOAL := help
+.PHONY: ci test
 
-ci: git-check deps-check
+ci: git-check deps-check test
 	@## run CI checks
-	(cd test/makefiles/ && ./makefiles_test.bats)
+
+test:
+	@## run tests
+	(cd tests/makefiles/ && ./makefiles_test.bats)
 
 ################################################################################
