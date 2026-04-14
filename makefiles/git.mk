@@ -24,7 +24,7 @@
 ifndef _GIT_MK_
 _GIT_MK_ := 1
 
-DEPS += awk basename cut dir fold git paste sed sort tr
+DEPS += awk basename cut fold git paste sed sort tr
 
 ################################################################################
 
