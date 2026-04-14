@@ -2,8 +2,8 @@
 
 ################################################################################
 
-load '../helpers/bats-assert/load'
-load '../helpers/bats-support/load'
+load '../../third-party/bats-assert/load'
+load '../../third-party/bats-support/load'
 
 ################################################################################
 # functions.mk
