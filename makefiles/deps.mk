@@ -21,7 +21,7 @@ endef
 .PHONY: deps-check deps-install
 
 deps-check::
-	@## check that required tools are installed
+	@## check deps.mk dependencies
 	$(call check_dep,python3)
 
 deps-install::

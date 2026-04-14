@@ -12,6 +12,7 @@
 ################################################################################
 
 -include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
+-include $(dir $(lastword $(MAKEFILE_LIST)))deps.mk
 -include $(dir $(lastword $(MAKEFILE_LIST)))functions.mk
 -include $(dir $(lastword $(MAKEFILE_LIST)))verbose.mk
 
@@ -50,6 +51,7 @@ versions::
 	$(call print_tool_version,prettier,prettier)
 
 deps-check::
+	@## check lint.mk dependencies
 	$(call check_dep,htmlhint)
 	$(call check_dep,prettier)
 
