@@ -18,10 +18,11 @@ MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 include $(MAKEFILES_DIR)base.mk
 include $(MAKEFILES_DIR)deps.mk
-include $(MAKEFILES_DIR)functions.mk
 include $(MAKEFILES_DIR)verbose.mk
 
 ################################################################################
+
+DEPS += htmlhint prettier
 
 LINT_EXCLUDE ?= .git build .claude node_modules
 
@@ -51,16 +52,6 @@ _lint_html:
 _lint_prettier _format_prettier:
 	@## check/format with prettier
 	$(Q) $(LINT_FIND) -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) | xargs prettier $(PRETTIER_FLAGS)
-
-versions::
-	@## print lint tool versions
-	$(call print_tool_version,htmlhint,htmlhint)
-	$(call print_tool_version,prettier,prettier)
-
-deps-check::
-	@## check lint.mk dependencies
-	$(call dep_check,htmlhint)
-	$(call dep_check,prettier)
 
 ################################################################################
 
