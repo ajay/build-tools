@@ -1,3 +1,6 @@
+ifndef _DEPS_MK_
+_DEPS_MK_ := 1
+
 ################################################################################
 
 # Dependency check and install targets.
@@ -33,3 +36,5 @@ deps-install::
 	$(MAKEFILES_DIR)../tools/deps/os/$(OS).sh
 
 ################################################################################
+
+endif # _DEPS_MK_

@@ -1,3 +1,6 @@
+ifndef _FUNCTIONS_MK_
+_FUNCTIONS_MK_ := 1
+
 ################################################################################
 
 # Prints the version of a tool to stdout. Assumes support for the --version flag.
@@ -16,3 +19,5 @@ define print_tool_version_V
 endef
 
 ################################################################################
+
+endif # _FUNCTIONS_MK_

@@ -1,3 +1,6 @@
+ifndef _BASE_MK_
+_BASE_MK_ := 1
+
 ################################################################################
 
 PYTHON ?= python3
@@ -11,3 +14,5 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-print-directory
 
 ################################################################################
+
+endif # _BASE_MK_
