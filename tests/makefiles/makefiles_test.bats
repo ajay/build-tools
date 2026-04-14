@@ -23,6 +23,21 @@ load '../helpers/bats-support/load'
 }
 
 ################################################################################
+# git.mk
+
+@test "`make help` shows git-check target" {
+  run make help
+  assert_success
+  assert_output --regexp "git-check.*run all git health checks"
+}
+
+@test "`make help` shows git-submodule-stale-check target" {
+  run make help
+  assert_success
+  assert_output --regexp "git-submodule-stale-check.*check all submodules"
+}
+
+################################################################################
 # help.mk
 
 @test "`make help` produces a help menu" {
@@ -67,21 +82,6 @@ load '../helpers/bats-support/load'
   run make help
   assert_success
   assert_output --regexp "COMMIT  = [0-9a-f]+ \("
-}
-
-################################################################################
-# git.mk
-
-@test "`make help` shows git-check target" {
-  run make help
-  assert_success
-  assert_output --regexp "git-check.*run all git health checks"
-}
-
-@test "`make help` shows git-submodule-stale-check target" {
-  run make help
-  assert_success
-  assert_output --regexp "git-submodule-stale-check.*check all submodules"
 }
 
 ################################################################################
