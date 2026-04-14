@@ -30,7 +30,7 @@ help::
 	sort -V |                                                                                                    \
 	uniq |                                                                                                       \
 	awk -F'\t' '/^_/{a[++i]=$$0;next}{b[++j]=$$0}END{for(k=1;k<=i;k++)print a[k];for(k=1;k<=j;k++)print b[k]}' | \
-	while IFS=$$'\t' read -r target desc; do                                                                     \
+	while IFS='	' read -r target desc; do                                                                       \
 		printf $(HELP_PRINT_GREEN);                                                                              \
 		printf "  %-30s" "$$target";                                                                             \
 		printf $(HELP_PRINT_RESET);                                                                              \
