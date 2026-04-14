@@ -55,3 +55,18 @@ load '../helpers/bats-support/load'
 }
 
 ################################################################################
+# project.mk
+
+@test "`make help` prints PROJECT name" {
+  run make help
+  assert_success
+  assert_output --regexp "PROJECT = "
+}
+
+@test "`make help` prints COMMIT with short hash and branch" {
+  run make help
+  assert_success
+  assert_output --regexp "COMMIT  = [0-9a-f]+ \("
+}
+
+################################################################################

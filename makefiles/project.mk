@@ -1,18 +1,17 @@
 ################################################################################
 
-# Print project info at parse time.
-
-################################################################################
-
 MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 include $(MAKEFILES_DIR)base.mk
+include $(MAKEFILES_DIR)git.mk
 
 ################################################################################
 
+PROJECT_NAME ?= $(notdir $(CURDIR))
+
 $(info )
 $(info PROJECT = $(PROJECT_NAME))
-$(info COMMIT  = $(COMMIT))
+$(info COMMIT  = $(GIT_COMMIT) ($(GIT_BRANCH))$(if $(GIT_DIRTY), $(GIT_DIRTY)))
 $(info )
 
 ################################################################################
