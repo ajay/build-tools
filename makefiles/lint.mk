@@ -37,10 +37,10 @@ _lint_html:
 	@## lint HTML (htmlhint)
 	@ $(LINT_FIND) -name '*.html' | xargs htmlhint
 
-# prettier: HTML, CSS, JS, JSON
+# prettier: HTML, CSS, JS, JSON (excludes symlinks)
 _lint_prettier _format_prettier:
 	@## check/format with prettier
-	@ $(LINT_FIND) \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) | xargs prettier $(PRETTIER_FLAGS)
+	@ $(LINT_FIND) -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' \) | xargs prettier $(PRETTIER_FLAGS)
 
 versions::
 	@## print lint tool versions
