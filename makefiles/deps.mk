@@ -14,7 +14,7 @@
 -include $(dir $(lastword $(MAKEFILE_LIST)))verbose.mk
 
 # $(1) = tool name
-define check_dep
+define dep_check
 	$(Q) command -v $(1) >/dev/null 2>&1 && echo "OK: $(1)" || { echo "MISSING: $(1)"; exit 1; }
 endef
 
@@ -22,7 +22,7 @@ endef
 
 deps-check::
 	@## check deps.mk dependencies
-	$(call check_dep,python3)
+	$(call dep_check,python3)
 
 deps-install::
 	@## install dependencies

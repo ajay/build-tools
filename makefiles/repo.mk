@@ -1,4 +1,25 @@
 ################################################################################
+## Copy-paste block — uncomment all lines after pasting into your Makefile
+################################################################################
+
+# # Copied from build-tools repo.mk reference implementation.
+# # https://github.com/ajay/build-tools/blob/main/makefiles/repo.mk
+# # Keep in sync with the reference when updating.
+
+# REPO_ROOT := $(shell git rev-parse --show-toplevel)
+
+# repo-submodule-update:
+# 	@## initialize and update git submodules
+# 	git submodule sync --recursive
+# 	git submodule update --init --recursive
+
+# ifneq ($(MAKECMDGOALS),repo-submodule-update)
+# ifneq (,$(shell git submodule status --recursive 2>/dev/null | grep '^[-+]'))
+# $(error ERROR: git submodules not initialized or out of date; run `make repo-submodule-update`)
+# endif
+# endif
+
+################################################################################
 
 # Repo helpers for projects using git submodules.
 #
@@ -7,10 +28,6 @@
 # commit on their remote default branch. Checks recursively through nested
 # submodules. Set REPO_CHECK_FOR_STALE_SUBMODULES_EXCLUDE to a space-separated list of
 # submodule names to skip (e.g. third-party deps pinned intentionally).
-#
-# The repo-init copy-paste block below must live in each repo's root Makefile
-# because it needs to run before submodules are available. This file's existence
-# is used to check whether submodules have been initialized.
 
 ################################################################################
 
@@ -71,26 +88,5 @@ repo-check-for-stale-submodules:
 		echo "ERROR: one or more submodules are out of date; please update";                                    \
 		exit 1;                                                                                                 \
 	fi
-
-################################################################################
-## Copy-paste block — uncomment all lines after pasting into your Makefile
-################################################################################
-
-# # Copied from build-tools repo.mk reference implementation.
-# # https://github.com/ajay/build-tools/blob/main/makefiles/repo.mk
-# # Keep in sync with the reference when updating.
-
-# REPO_ROOT := $(shell git rev-parse --show-toplevel)
-
-# repo-submodule-update:
-# 	@## initialize and update git submodules
-# 	git submodule sync --recursive
-# 	git submodule update --init --recursive
-
-# ifneq ($(MAKECMDGOALS),repo-submodule-update)
-# ifneq (,$(shell git submodule status --recursive 2>/dev/null | grep '^[-+]'))
-# $(error ERROR: git submodules not initialized or out of date; run `make repo-submodule-update`)
-# endif
-# endif
 
 ################################################################################

@@ -52,7 +52,7 @@ versions::
 
 deps-check::
 	@## check lint.mk dependencies
-	$(call check_dep,htmlhint)
-	$(call check_dep,prettier)
+	$(call dep_check,htmlhint)
+	$(call dep_check,prettier)
 
 ################################################################################
