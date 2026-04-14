@@ -9,9 +9,13 @@
 
 ################################################################################
 
--include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
--include $(dir $(lastword $(MAKEFILE_LIST)))os.mk
--include $(dir $(lastword $(MAKEFILE_LIST)))verbose.mk
+MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+include $(MAKEFILES_DIR)base.mk
+include $(MAKEFILES_DIR)os.mk
+include $(MAKEFILES_DIR)verbose.mk
+
+################################################################################
 
 # $(1) = tool name
 define dep_check
@@ -26,6 +30,6 @@ deps-check::
 
 deps-install::
 	@## install dependencies
-	$(dir $(lastword $(MAKEFILE_LIST)))../tools/deps/os/$(OS).sh
+	$(MAKEFILES_DIR)../tools/deps/os/$(OS).sh
 
 ################################################################################

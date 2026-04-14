@@ -4,7 +4,11 @@
 
 ################################################################################
 
--include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
+MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+include $(MAKEFILES_DIR)base.mk
+
+################################################################################
 
 $(info )
 $(info PROJECT = $(PROJECT_NAME))

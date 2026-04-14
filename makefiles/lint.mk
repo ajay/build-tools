@@ -11,10 +11,14 @@
 
 ################################################################################
 
--include $(dir $(lastword $(MAKEFILE_LIST)))base.mk
--include $(dir $(lastword $(MAKEFILE_LIST)))deps.mk
--include $(dir $(lastword $(MAKEFILE_LIST)))functions.mk
--include $(dir $(lastword $(MAKEFILE_LIST)))verbose.mk
+MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+include $(MAKEFILES_DIR)base.mk
+include $(MAKEFILES_DIR)deps.mk
+include $(MAKEFILES_DIR)functions.mk
+include $(MAKEFILES_DIR)verbose.mk
+
+################################################################################
 
 LINT_EXCLUDE ?= .git build .claude node_modules
 
