@@ -1,6 +1,8 @@
 ifndef _FUNCTIONS_MK_
 _FUNCTIONS_MK_ := 1
 
+DEPS += echo
+
 ################################################################################
 
 # Prints the version of a tool to stdout. Assumes support for the --version flag.

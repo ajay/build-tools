@@ -1,6 +1,8 @@
 ifndef _HELP_MK_
 _HELP_MK_ := 1
 
+DEPS += awk grep sort uniq
+
 ################################################################################
 
 # Generates a help menu for a makefile in a "make help" target.

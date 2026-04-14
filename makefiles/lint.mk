@@ -1,6 +1,8 @@
 ifndef _LINT_MK_
 _LINT_MK_ := 1
 
+DEPS += find htmlhint prettier xargs
+
 ################################################################################
 
 # Lint and format targets.
@@ -21,8 +23,6 @@ include $(MAKEFILES_DIR)deps.mk
 include $(MAKEFILES_DIR)verbose.mk
 
 ################################################################################
-
-DEPS += htmlhint prettier
 
 LINT_EXCLUDE ?= .git build .claude node_modules
 

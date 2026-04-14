@@ -1,6 +1,8 @@
 ifndef _DEPS_MK_
 _DEPS_MK_ := 1
 
+DEPS += echo
+
 ################################################################################
 
 MAKEFILES_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
@@ -16,9 +18,6 @@ include $(MAKEFILES_DIR)verbose.mk
 define dep_check
 	$(Q) command -v $(1) >/dev/null 2>&1 && echo "OK: $(1)" || { echo "MISSING: $(1)"; exit 1; }
 endef
-
-DEPS ?=
-DEPS += python3
 
 .PHONY: deps-check deps-install deps-versions
 

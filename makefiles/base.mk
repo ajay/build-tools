@@ -1,6 +1,8 @@
 ifndef _BASE_MK_
 _BASE_MK_ := 1
 
+DEPS += bash git python3 rm
+
 ################################################################################
 
 PYTHON ?= python3
