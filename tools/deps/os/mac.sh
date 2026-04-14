@@ -2,4 +2,6 @@
 set -x -e
 brew install \
 	bats-core
-npm install -g htmlhint
+npm install -g \
+	htmlhint \
+	prettier
