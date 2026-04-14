@@ -28,22 +28,20 @@ load '../helpers/bats-support/load'
 @test "`make help` produces a help menu" {
   run make help
   assert_success
-  assert_output --partial "help"
-  assert_output --partial "this menu"
+  assert_output --regexp "help.*this menu"
 }
 
-@test "`make help` shows correct descriptions" {
+@test "`make help` shows correct target + description pairs" {
   run make help
   assert_success
-  assert_output --partial "last alphabetically"
-  assert_output --partial "first alphabetically"
-  assert_output --partial "should appear before non-underscore targets"
+  assert_output --regexp "zebra.*last alphabetically"
+  assert_output --regexp "apple.*first alphabetically"
+  assert_output --regexp "_underscore_target.*should appear before non-underscore targets"
 }
 
 @test "`make help` sorts _ targets before others" {
   run make help
   assert_success
-  # _underscore_target should appear before apple in the output
   local underscore_line=$(echo "$output" | grep -n "_underscore_target" | head -1 | cut -d: -f1)
   local apple_line=$(echo "$output" | grep -n "apple" | head -1 | cut -d: -f1)
   [ "$underscore_line" -lt "$apple_line" ]
@@ -52,8 +50,8 @@ load '../helpers/bats-support/load'
 @test "`make help` shows both :: definitions with unique descriptions" {
   run make help
   assert_success
-  assert_output --partial "first definition"
-  assert_output --partial "second definition"
+  assert_output --regexp "multi_def.*first definition"
+  assert_output --regexp "multi_def.*second definition"
 }
 
 ################################################################################
