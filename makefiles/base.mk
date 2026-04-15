@@ -7,7 +7,7 @@ DEPS += bash git python3 rm
 
 PYTHON ?= python3
 REPO_ROOT ?= $(shell git rev-parse --show-toplevel)
-RM ?= rm -rf
+RM := rm -rf
 SHELL := bash
 
 MAKEFLAGS += -rR                        # do not use make's built-in rules and variables
