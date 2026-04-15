@@ -38,7 +38,7 @@ deps-versions::
 	$(Q) for tool in $(DEPS_SORTED); do      \
 		echo "---";                          \
 		echo "$$tool=$$(command -v $$tool)"; \
-		$$tool --version 2>&1;               \
+		$$tool --version 2>&1 || true;       \
 	done
 
 ################################################################################
