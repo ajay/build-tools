@@ -1,8 +1,6 @@
 ################################################################################
 
-include ../../makefiles/functions.mk
-include ../../makefiles/help.mk
-include ../../makefiles/project.mk
+include ../../makefiles.mk
 
 ################################################################################
 
