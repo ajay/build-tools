@@ -1,7 +1,7 @@
 ifndef _HELP_MK_
 _HELP_MK_ := 1
 
-DEPS += awk grep sort uniq
+DEPS += awk grep make sort uniq
 
 ################################################################################
 
