@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_call:
+    inputs:
+      submodule-checkout-opt-out:
+        description: 'Space-separated submodule paths to skip in checkout (e.g. private submodules CI cannot access). All non-skipped submodules are checked out and must succeed.'
+        type: string
+        default: ''
 
 jobs:
   make-ci:
@@ -15,7 +20,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
+          submodules: ${{ (inputs.submodule-checkout-opt-out || '') == '' && 'recursive' || 'false' }}
+      - name: Check out submodules except the opt-out list (all others required)
+        if: ${{ (inputs.submodule-checkout-opt-out || '') != '' }}
+        run: |
+          # Submodule URLs use git@github.com:; rewrite to https so CI clones
+          # public ones anonymously (no SSH key on the runner).
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          opt_out=" ${{ inputs.submodule-checkout-opt-out }} "
+          git config --file .gitmodules --get-regexp 'submodule\..*\.path' | awk '{print $2}' | while read -r path; do
+            case "$opt_out" in
+              *" $path "*) echo "opt-out: $path (skipped)"; continue ;;
+            esac
+            echo "init: $path"
+            git submodule update --init --recursive "$path"
+          done
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
